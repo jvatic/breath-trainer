@@ -1,0 +1,2 @@
+#!/bin/bash
+curl -s $PING_URL > /dev/null
