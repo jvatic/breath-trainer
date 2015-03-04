@@ -110,6 +110,7 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var BreathSequencer = function () {
 	this.__changeListeners = [];
 	this.__audioContext = new window.AudioContext();
+	this.__gainNode = this.__audioContext.createGain();
 	this.__audioData = {};
 	this.state = this.getInitialState();
 };
@@ -215,6 +216,10 @@ BreathSequencer.prototype.removeChangeListener = function (fn) {
 	});
 };
 
+BreathSequencer.prototype.setGain = function () {
+	this.__gainNode.gain.value = globalState.gain;
+};
+
 BreathSequencer.prototype.loadAudio = function () {
 	var promises = [];
 	for (var k in SEQUENCE_AUDIO) {
@@ -259,8 +264,12 @@ BreathSequencer.prototype.__playAudio = function () {
 
 	this.__audioContext.decodeAudioData(b, function(buffer) {
 		var source = this.__audioContext.createBufferSource();
+		var gainNode = this.__gainNode;
 		source.buffer = buffer;
 		source.connect(this.__audioContext.destination);
+		source.connect(gainNode);
+		gainNode.connect(this.__audioContext.destination);
+		this.setGain();
 		source.playbackRate.value = 1 / (globalState.timing[rhythm] / buffer.duration); // ensure audio fills rhythm duration
 		source.start(0);
 		this.__currentAudioSource = source;
@@ -351,6 +360,36 @@ React.render(React.createElement(React.createClass({
 							</div>
 						);
 					})}
+
+					{globalState.audioEnabled ? (
+						<div>
+							<input
+								type="range"
+								defaultValue={globalState.gain}
+								min={1}
+								max={30}
+								step={0.5}
+								title="audio volume"
+								onChange={function (e) {
+									var gain = parseFloat(e.target.value);
+									console.log(gain);
+									setGlobalState({
+										gain: gain
+									});
+									breathSequencer.setGain();
+								}} />
+						</div>
+					) : null}
+
+					<div>
+					<button
+						style={{
+							marginTop: 40,
+							fontSize: 24,
+							fontWeight: 400
+						}}
+						onClick={breathSequencer.toggle.bind(breathSequencer)}>Stop</button>
+					</div>
 				</div>
 			);
 		} else {
@@ -436,7 +475,5 @@ React.render(React.createElement(React.createClass({
 		this.setState(this.__getState(this.props));
 	}
 })), document.getElementById("main"));
-
-document.body.addEventListener("click", breathSequencer.stop.bind(breathSequencer), false);
 
 })();
