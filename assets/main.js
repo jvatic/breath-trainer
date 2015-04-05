@@ -420,7 +420,7 @@ React.render(React.createElement(React.createClass({
 								checked: globalState.repeatEnabled, 
 								onChange: function (e) {
 									setGlobalState({
-										repeatEnabled: !e.target.checked
+										repeatEnabled: e.target.checked
 									});
 								}})
 						)
@@ -441,7 +441,7 @@ React.render(React.createElement(React.createClass({
 							checked: globalState.audioLoadError === null && globalState.audioEnabled, disabled: globalState.audioLoadError, 
 							onChange: function (e) {
 								setGlobalState({
-									audioEnabled: !e.target.checked
+									audioEnabled: e.target.checked
 								});
 							}})
 						)
