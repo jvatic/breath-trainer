@@ -36,6 +36,7 @@ function defaultGlobalState() {
 	return {
 		timing: timing,
 		times: 7,
+		gain: 10,
 		audioEnabled: true,
 		audioLoaded: false,
 		audioLoadError: null,
@@ -372,7 +373,6 @@ React.render(React.createElement(React.createClass({
 								title="audio volume"
 								onChange={function (e) {
 									var gain = parseFloat(e.target.value);
-									console.log(gain);
 									setGlobalState({
 										gain: gain
 									});
