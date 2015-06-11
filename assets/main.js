@@ -26,7 +26,7 @@ var SEQUENCE_AUDIO = {
 	"silence"   :  "silence.mp3"
 };
 
-var savableGlobalStateKeys = ["timing", "times", "audioEnabled", "repeatEnabled"];
+var savableGlobalStateKeys = ["timing", "times", "audioEnabled", "repeatEnabled", "gain"];
 
 function defaultGlobalState() {
 	var timing = {};
