@@ -19,11 +19,11 @@ var SEQUENCES = [
 var RHYTHM = ["rest", "in", "hold", "out"];
 
 var SEQUENCE_AUDIO = {
-	"nose-in"   :  "nose-in.mp3",
-	"nose-out"  :  "nose-out.mp3",
-	"mouth-in"  :  "mouth-in.mp3",
-	"mouth-out" :  "mouth-out.mp3",
-	"silence"   :  "silence.mp3"
+	"nose-in"   :  "nose-in.wav",
+	"nose-out"  :  "nose-out.wav",
+	"mouth-in"  :  "mouth-in.wav",
+	"mouth-out" :  "mouth-out.wav",
+	"silence"   :  "silence.wav"
 };
 
 var savableGlobalStateKeys = ["timing", "times", "audioEnabled", "repeatEnabled", "gain"];
