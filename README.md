@@ -1,5 +1,5 @@
 # Breath Trainer
 
-[breathtrainer.io](http://breathtrainer.io)
+[jvatic.github.io/breath-trainer/](https://jvatic.github.io/breath-trainer/)
 
 This is a simple breath meditation app.
